@@ -1,0 +1,16 @@
+ - Portaudio SVN revision r1963, 2015-10-21
+ - A small modification to portaudio code has been made in src/hostapi/wdmks/pa_win_wdmks.c
+   to facilitate linking against strmiids.lib . Look for "OpenMPT" there.
+ - src/common/pa_front.c has been fixed to compile with a C89 compiler.
+   Modifications have been marked with // OpenMPT.
+ - build/msvc/portaudio.def has been modified. Modifications are marked with
+   ";OpenMPT".
+ - For building, premake is used to generate Visual Studio project files.
+   See ../build/premake/ for details.
+ - A couple of unnecessary folders have been omitted in SVN:
+   bindings, cmake_support, doc, examples, pablio, test, testcvs
+
+   NOTE: Various versions of the Windows SDK (such as the one provided with the VS2008 x64 compiler) 
+   do not provide ksguid.lib. To simplify the build configuration, PA_WDMKS_NO_KSGUID_LIB
+   is defined in the premake projects to always use PortAudio's workaround, regardless of
+   the compiler version used.
