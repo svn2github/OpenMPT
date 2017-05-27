@@ -44,7 +44,7 @@
  .if OPUS_ARM_MAY_HAVE_NEON
 
 @ Compute sum[k]=sum(x[j]*y[j+k],j=0...len-1), k=0...3
-; xcorr_kernel_neon: @ PROC
+	.type	xcorr_kernel_neon, %function; xcorr_kernel_neon: @ PROC
 xcorr_kernel_neon_start:
   @ input:
   @   r3     = int         len
@@ -157,7 +157,7 @@ xcorr_kernel_neon_process1:
 
 @ opus_val32 celt_pitch_xcorr_neon(opus_val16 *_x, opus_val16 *_y,
 @  opus_val32 *xcorr, int len, int max_pitch)
-; celt_pitch_xcorr_neon: @ PROC
+	.type	celt_pitch_xcorr_neon, %function; celt_pitch_xcorr_neon: @ PROC
   @ input:
   @   r0  = opus_val16 *_x
   @   r1  = opus_val16 *_y
@@ -260,7 +260,7 @@ celt_pitch_xcorr_neon_done:
 
 @ This will get used on ARMv7 devices without NEON, so it has been optimized
 @ to take advantage of dual-issuing where possible.
-; xcorr_kernel_edsp: @ PROC
+	.type	xcorr_kernel_edsp, %function; xcorr_kernel_edsp: @ PROC
 xcorr_kernel_edsp_start:
   @ input:
   @   r3      = int         len
@@ -344,7 +344,7 @@ xcorr_kernel_edsp_done:
   LDMFD        sp!, {r2,r4,r5,pc}
 	.size xcorr_kernel_edsp, .-xcorr_kernel_edsp  @ ENDP
 
-; celt_pitch_xcorr_edsp: @ PROC
+	.type	celt_pitch_xcorr_edsp, %function; celt_pitch_xcorr_edsp: @ PROC
   @ input:
   @   r0  = opus_val16 *_x (must be 32-bit aligned)
   @   r1  = opus_val16 *_y (only needs to be 16-bit aligned)
