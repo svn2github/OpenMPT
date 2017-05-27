@@ -117,7 +117,10 @@ private:
 		}
 
 		ope_encoder = ope_encoder_create_callbacks(&ope_callbacks, this, ope_comments, opus_samplerate, opus_channels, opus_channels > 2 ? 1 : 0, &ope_error);
-			
+		
+		opus_int32 ctl_serial = mpt::random<uint32>(theApp.PRNG());
+		ope_encoder_ctl(ope_encoder, OPE_SET_SERIALNO(ctl_serial));
+
 		opus_int32 ctl_bitrate = opus_bitrate;
 		ope_encoder_ctl(ope_encoder, OPUS_SET_BITRATE(ctl_bitrate));
 
