@@ -210,6 +210,8 @@ public:
 		opus_channels = channels;
 		opus_tags = settings.Tags;
 
+		inited = true;
+
 		ASSERT(inited && !started);
 	}
 	virtual void WriteMetatags(const FileTags &tags)
