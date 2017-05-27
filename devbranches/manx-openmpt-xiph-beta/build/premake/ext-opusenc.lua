@@ -32,7 +32,7 @@
    "../../include/opusenc/src/*.h",
   }
 	defines { "OPE_BUILD", "FLOATING_POINT" }
-	defines { "PACKAGE_NAME=\"opusenc\"", "PACKAGE_VERSION=\"a234a15a59fddd261a4262820e76b49073c93e62\"" }
+	defines { "PACKAGE_NAME=\"libopusenc\"", "PACKAGE_VERSION=\"0.1\"" }
 	defines { "OUTSIDE_SPEEX", "SPX_RESAMPLE_EXPORT=", "RANDOM_PREFIX=libopusenc" }
   links { "ogg", "opus" }
   filter { "action:vs*" }
