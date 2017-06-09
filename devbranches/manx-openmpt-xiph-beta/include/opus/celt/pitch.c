@@ -220,13 +220,8 @@ opus_val32
 #else
 void
 #endif
-#if defined(OVERRIDE_PITCH_XCORR)
 celt_pitch_xcorr_c(const opus_val16 *_x, const opus_val16 *_y,
-      opus_val32 *xcorr, int len, int max_pitch)
-#else
-celt_pitch_xcorr(const opus_val16 *_x, const opus_val16 *_y,
       opus_val32 *xcorr, int len, int max_pitch, int arch)
-#endif
 {
 
 #if 0 /* This is a simple version of the pitch correlation that should work
@@ -265,11 +260,7 @@ celt_pitch_xcorr(const opus_val16 *_x, const opus_val16 *_y,
    for (i=0;i<max_pitch-3;i+=4)
    {
       opus_val32 sum[4]={0,0,0,0};
-#if defined(OVERRIDE_PITCH_XCORR)
-      xcorr_kernel_c(_x, _y+i, sum, len);
-#else
       xcorr_kernel(_x, _y+i, sum, len, arch);
-#endif
       xcorr[i]=sum[0];
       xcorr[i+1]=sum[1];
       xcorr[i+2]=sum[2];
@@ -285,11 +276,7 @@ celt_pitch_xcorr(const opus_val16 *_x, const opus_val16 *_y,
    for (;i<max_pitch;i++)
    {
       opus_val32 sum;
-#if defined(OVERRIDE_PITCH_XCORR)
-      sum = celt_inner_prod_c(_x, _y+i, len);
-#else
       sum = celt_inner_prod(_x, _y+i, len, arch);
-#endif
       xcorr[i] = sum;
 #ifdef FIXED_POINT
       maxcorr = MAX32(maxcorr, sum);
@@ -378,7 +365,7 @@ void pitch_search(const opus_val16 * OPUS_RESTRICT x_lp, opus_val16 * OPUS_RESTR
       for (j=0;j<len>>1;j++)
          sum += SHR32(MULT16_16(x_lp[j],y[i+j]), shift);
 #else
-      sum = celt_inner_prod_c(x_lp, y+i, len>>1);
+      sum = celt_inner_prod(x_lp, y+i, len>>1, arch);
 #endif
       xcorr[i] = MAX32(-1, sum);
 #ifdef FIXED_POINT
